@@ -16,11 +16,31 @@ const quizData = [
   }
 ];
 
+let userName = "";
+let userAvatar = "";
 let currentQuestion = 0;
 let score = 0;
 let answered = false;
 let timeLeft = 15;
 let timerInterval = null;
+
+function selectAvatar(emoji) {
+  userAvatar = emoji;
+  document.querySelectorAll(".avatar").forEach(a => a.style.border = "");
+  event.target.style.border = "2px solid #4f46e5";
+}
+
+function startQuiz() {
+  const nameInput = document.getElementById("nameInput").value.trim();
+  if (!nameInput || !userAvatar) {
+    alert("Please enter your name and choose an avatar.");
+    return;
+  }
+  userName = nameInput;
+  document.getElementById("start-screen").style.display = "none";
+  document.getElementById("quiz-box").style.display = "block";
+  renderQuiz();
+}
 
 function renderQuiz() {
   answered = false;
@@ -32,6 +52,7 @@ function renderQuiz() {
   const q = quizData[currentQuestion];
   document.getElementById("question").textContent = q.question;
   document.getElementById("counter").textContent = `Question ${currentQuestion + 1} of ${quizData.length}`;
+  document.getElementById("user-info").textContent = `${userAvatar} ${userName}`;
 
   const optionsDiv = document.getElementById("options");
   optionsDiv.innerHTML = "";
@@ -52,7 +73,6 @@ function startTimer() {
   timerInterval = setInterval(() => {
     timeLeft--;
     updateTimerDisplay();
-
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       autoFail();
@@ -105,8 +125,6 @@ function showResult() {
   document.getElementById("counter").style.display = "none";
 
   const result = document.getElementById("result");
-  result.textContent = `You scored ${score} out of ${quizData.length}!`;
+  result.textContent = `${userAvatar} ${userName}, you scored ${score} out of ${quizData.length}!`;
   result.style.display = "block";
 }
-
-renderQuiz();
