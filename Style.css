@@ -8,6 +8,39 @@ body {
   margin: 0;
 }
 
+.start-screen {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.start-screen input {
+  padding: 10px;
+  width: 80%;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.avatar-selection {
+  margin: 15px 0;
+}
+
+.avatar {
+  font-size: 30px;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: transform 0.2s;
+}
+
+.avatar:hover {
+  transform: scale(1.3);
+}
+
 .quiz-box {
   background: white;
   padding: 20px;
@@ -22,6 +55,10 @@ body {
   justify-content: space-between;
   margin-bottom: 10px;
   font-weight: bold;
+}
+
+.user-info {
+  font-size: 16px;
 }
 
 .counter {
