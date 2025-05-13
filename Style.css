@@ -56,3 +56,18 @@ body {
   font-size: 18px;
   text-align: center;
 }
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.counter {
+  color: #374151;
+}
+.timer {
+  background: #f87171;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
