@@ -122,6 +122,20 @@ function showResult() {
   const result = document.getElementById("result");
   result.textContent = `${userAvatar} ${userName}, you scored ${score} out of ${quizData.length}!`;
   result.style.display = "block";
+  // Save score to Firestore
+db.collection("scores").add({
+  name: userName,
+  avatar: userAvatar,
+  score: score,
+  total: quizData.length,
+  timestamp: new Date()
+})
+.then(() => {
+  console.log("Score saved to Firebase!");
+})
+.catch((error) => {
+  console.error("Error saving score: ", error);
+});
 }
 
 function toggleTheme() {
