@@ -31,7 +31,30 @@
     <button id="nextBtn" class="next-btn" onclick="nextQuestion()" style="display: none;">Next</button>
     <div id="result" class="result" style="display: none;"></div>
   </div>
+  
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBzzU3AqAb8DoJwMQQKPlr5Xw7VyQ_hsRc",
+    authDomain: "quiz-clone-4e8a1.firebaseapp.com",
+    projectId: "quiz-clone-4e8a1",
+    storageBucket: "quiz-clone-4e8a1.firebasestorage.app",
+    messagingSenderId: "870656905789",
+    appId: "1:870656905789:web:7af4c88111c8af4cbd1054",
+    measurementId: "G-863ZF9ETMB"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
   <script src="script.js"></script>
 </body>
 </html>
