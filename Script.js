@@ -1,9 +1,10 @@
-const quizData = [
+const quizDataOriginal = [
   { question: "What’s the capital of France?", options: ["Berlin", "Madrid", "Paris", "Lisbon"], correctIndex: 2 },
   { question: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter", "Venus"], correctIndex: 1 },
   { question: "What is 2 + 2?", options: ["3", "4", "5", "22"], correctIndex: 1 }
 ];
 
+let quizData = [];
 let userName = "";
 let userAvatar = "";
 let currentQuestion = 0;
@@ -25,6 +26,10 @@ function startQuiz() {
     return;
   }
   userName = nameInput;
+
+  // Shuffle questions
+  quizData = [...quizDataOriginal].sort(() => Math.random() - 0.5);
+
   document.getElementById("start-screen").style.display = "none";
   const quizBox = document.getElementById("quiz-box");
   quizBox.style.display = "block";
@@ -117,4 +122,8 @@ function showResult() {
   const result = document.getElementById("result");
   result.textContent = `${userAvatar} ${userName}, you scored ${score} out of ${quizData.length}!`;
   result.style.display = "block";
+}
+
+function toggleTheme() {
+  document.body.classList.toggle("dark");
 }
