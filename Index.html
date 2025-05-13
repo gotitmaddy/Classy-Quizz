@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Quiz App</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="quiz-box">
+  <div id="start-screen" class="start-screen">
+    <h2>Welcome to the Quiz!</h2>
+    <input id="nameInput" type="text" placeholder="Enter your name" />
+    <div class="avatar-selection">
+      <span class="avatar" onclick="selectAvatar('🐱')">🐱</span>
+      <span class="avatar" onclick="selectAvatar('🐶')">🐶</span>
+      <span class="avatar" onclick="selectAvatar('🐵')">🐵</span>
+      <span class="avatar" onclick="selectAvatar('🦊')">🦊</span>
+    </div>
+    <button onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quiz-box" class="quiz-box" style="display: none;">
     <div class="quiz-header">
-      <div id="counter" class="counter">Question 1 of 3</div>
+      <div id="user-info" class="user-info"></div>
+      <div id="counter" class="counter"></div>
       <div id="timer" class="timer">15s</div>
     </div>
     <div id="question" class="question"></div>
