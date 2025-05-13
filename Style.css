@@ -172,3 +172,59 @@ body.dark .next-btn {
 body.dark .avatar:hover {
   background: #4b5563;
 }
+.hidden {
+  display: none;
+}
+
+#leaderboard {
+  margin-top: 20px;
+  padding: 1rem;
+  background: #1e1e2f;
+  border-radius: 10px;
+  color: white;
+}
+
+#leaderboard h3 {
+  color: #ffd700;
+}
+
+#leaderboard ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#leaderboard li {
+  margin: 5px 0;
+  border-bottom: 1px solid #444;
+}
+
+#play-again-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#popup {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: #28a745;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  z-index: 1000;
+  animation: fadeInOut 3s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
