@@ -1,60 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Animated Quiz App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Room App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <button id="toggle-theme" onclick="toggleTheme()">Toggle Dark Mode</button>
-
-  <div id="start-screen" class="start-screen fade-in">
-    <h2>Welcome to the Quiz!</h2>
-    <input id="nameInput" type="text" placeholder="Enter your name" />
-    <div class="avatar-selection">
-      <span class="avatar" onclick="selectAvatar('🐱')">🐱</span>
-      <span class="avatar" onclick="selectAvatar('🐶')">🐶</span>
-      <span class="avatar" onclick="selectAvatar('🐵')">🐵</span>
-      <span class="avatar" onclick="selectAvatar('🦊')">🦊</span>
+<body class="dark-mode">  <div id="theme-toggle">Toggle Theme</div>  <div id="home-screen">
+    <h2>Join a Quiz Room</h2>
+    <input id="player-name" placeholder="Your Name" />
+    <select id="avatar-select">
+      <option value="😀">😀</option>
+      <option value="😎">😎</option>
+      <option value="🤖">🤖</option>
+      <option value="👩‍💻">👩‍💻</option>
+      <option value="🧠">🧠</option>
+    </select>
+    <button id="create-room">Create Room</button>
+    <input id="join-code" placeholder="Enter Room Code" />
+    <button id="join-room">Join Room</button>
+  </div>  <div id="host-screen" class="hidden">
+    <h2>Room Code: <span id="room-code-display"></span></h2>
+    <h3>Players Joined:</h3>
+    <ul id="player-list"></ul>
+    <textarea id="question-data" placeholder='[{"question":"...","options":[...],"answer":"..."}]'></textarea>
+    <button id="start-quiz">Start Quiz</button>
+  </div>  <div id="waiting-screen" class="hidden">
+    <h2>Waiting for host to start the quiz...</h2>
+  </div>  <div id="quiz-screen" class="hidden">
+    <div id="status-bar">
+      <span id="question-count"></span>
+      <span id="timer"></span>
     </div>
-    <button onclick="startQuiz()">Start Quiz</button>
-  </div>
-
-  <div id="quiz-box" class="quiz-box fade-in" style="display: none;">
-    <div class="quiz-header">
-      <div id="user-info" class="user-info"></div>
-      <div id="counter" class="counter"></div>
-      <div id="timer" class="timer">15s</div>
-    </div>
-    <div id="question" class="question"></div>
-    <div id="options" class="options"></div>
-    <button id="nextBtn" class="next-btn" onclick="nextQuestion()" style="display: none;">Next</button>
-    <div id="result" class="result" style="display: none;"></div>
-  </div>
-  
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBzzU3AqAb8DoJwMQQKPlr5Xw7VyQ_hsRc",
-    authDomain: "quiz-clone-4e8a1.firebaseapp.com",
-    projectId: "quiz-clone-4e8a1",
-    storageBucket: "quiz-clone-4e8a1.firebasestorage.app",
-    messagingSenderId: "870656905789",
-    appId: "1:870656905789:web:7af4c88111c8af4cbd1054",
-    measurementId: "G-863ZF9ETMB"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-  <script src="script.js"></script>
-</body>
+    <h2 id="question-text"></h2>
+    <div id="options"></div>
+  </div>  <div id="result-screen" class="hidden">
+    <h2>Leaderboard</h2>
+    <ul id="leaderboard"></ul>
+    <button onclick="location.reload()">Play Again</button>
+  </div>  <!-- Firebase SDK -->  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"></script>  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "your-app.firebaseapp.com",
+      projectId: "your-app",
+      storageBucket: "your-app.appspot.com",
+      messagingSenderId: "123456789",
+      appId: "APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>  <script src="script.js"></script></body>
 </html>
