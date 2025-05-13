@@ -19,14 +19,19 @@ const quizData = [
 let currentQuestion = 0;
 let score = 0;
 let answered = false;
+let timeLeft = 15;
+let timerInterval = null;
 
 function renderQuiz() {
   answered = false;
+  timeLeft = 15;
+  updateTimerDisplay();
   document.getElementById("nextBtn").style.display = "none";
   document.getElementById("result").style.display = "none";
 
   const q = quizData[currentQuestion];
   document.getElementById("question").textContent = q.question;
+  document.getElementById("counter").textContent = `Question ${currentQuestion + 1} of ${quizData.length}`;
 
   const optionsDiv = document.getElementById("options");
   optionsDiv.innerHTML = "";
@@ -38,11 +43,31 @@ function renderQuiz() {
     btn.onclick = () => selectOption(btn, index);
     optionsDiv.appendChild(btn);
   });
+
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      autoFail();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  document.getElementById("timer").textContent = `${timeLeft}s`;
 }
 
 function selectOption(elem, index) {
   if (answered) return;
   answered = true;
+  clearInterval(timerInterval);
 
   const correct = quizData[currentQuestion].correctIndex;
   if (index === correct) {
@@ -53,6 +78,13 @@ function selectOption(elem, index) {
     document.querySelectorAll(".option")[correct].classList.add("correct");
   }
 
+  document.getElementById("nextBtn").style.display = "block";
+}
+
+function autoFail() {
+  answered = true;
+  const correct = quizData[currentQuestion].correctIndex;
+  document.querySelectorAll(".option")[correct].classList.add("correct");
   document.getElementById("nextBtn").style.display = "block";
 }
 
@@ -69,6 +101,9 @@ function showResult() {
   document.getElementById("question").style.display = "none";
   document.getElementById("options").style.display = "none";
   document.getElementById("nextBtn").style.display = "none";
+  document.getElementById("timer").style.display = "none";
+  document.getElementById("counter").style.display = "none";
+
   const result = document.getElementById("result");
   result.textContent = `You scored ${score} out of ${quizData.length}!`;
   result.style.display = "block";
