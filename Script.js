@@ -1,156 +1,29 @@
-const quizDataOriginal = [
-  { question: "What’s the capital of France?", options: ["Berlin", "Madrid", "Paris", "Lisbon"], correctIndex: 2 },
-  { question: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter", "Venus"], correctIndex: 1 },
-  { question: "What is 2 + 2?", options: ["3", "4", "5", "22"], correctIndex: 1 }
-];
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f0f0; color: #333; transition: background 0.3s, color 0.3s; }
 
-let quizData = [];
-let userName = "";
-let userAvatar = "";
-let currentQuestion = 0;
-let score = 0;
-let answered = false;
-let timeLeft = 15;
-let timerInterval = null;
+.dark-mode { background-color: #121212; color: #ffffff; }
 
-function selectAvatar(emoji) {
-  userAvatar = emoji;
-  document.querySelectorAll(".avatar").forEach(a => a.style.border = "");
-  event.target.style.border = "2px solid #4f46e5";
-}
+.hidden { display: none; }
 
-function startQuiz() {
-  const nameInput = document.getElementById("nameInput").value.trim();
-  if (!nameInput || !userAvatar) {
-    alert("Please enter your name and choose an avatar.");
-    return;
-  }
-  userName = nameInput;
+#home-screen, #host-screen, #waiting-screen, #quiz-screen, #result-screen { padding: 20px; max-width: 600px; margin: auto; text-align: center; }
 
-  // Shuffle questions
-  quizData = [...quizDataOriginal].sort(() => Math.random() - 0.5);
+input, select, button, textarea { padding: 10px; margin: 10px 0; width: 90%; max-width: 500px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc; }
 
-  document.getElementById("start-screen").style.display = "none";
-  const quizBox = document.getElementById("quiz-box");
-  quizBox.style.display = "block";
-  quizBox.classList.add("fade-in");
-  renderQuiz();
-}
+button { background-color: #007bff; color: white; cursor: pointer; border: none; transition: background-color 0.3s; }
 
-function renderQuiz() {
-  answered = false;
-  timeLeft = 15;
-  updateTimerDisplay();
-  document.getElementById("nextBtn").style.display = "none";
-  document.getElementById("result").style.display = "none";
+button:hover { background-color: #0056b3; }
 
-  const q = quizData[currentQuestion];
-  document.getElementById("question").textContent = q.question;
-  document.getElementById("counter").textContent = `Question ${currentQuestion + 1} of ${quizData.length}`;
-  document.getElementById("user-info").textContent = `${userAvatar} ${userName}`;
+#options button { display: block; width: 100%; margin: 5px 0; }
 
-  const optionsDiv = document.getElementById("options");
-  optionsDiv.innerHTML = "";
+#status-bar { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; }
 
-  q.options.forEach((option, index) => {
-    const btn = document.createElement("div");
-    btn.textContent = option;
-    btn.className = "option fade-in";
-    btn.onclick = () => selectOption(btn, index);
-    optionsDiv.appendChild(btn);
-  });
+#leaderboard li, #player-list li { list-style: none; padding: 5px; border-bottom: 1px solid #ccc; }
 
-  startTimer();
-}
+#theme-toggle { position: fixed; top: 10px; right: 10px; background: #444; color: white; padding: 5px 10px; border-radius: 8px; cursor: pointer; z-index: 999; }
 
-function startTimer() {
-  clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    timeLeft--;
-    updateTimerDisplay();
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-      autoFail();
-    }
-  }, 1000);
-}
+@media (max-width: 600px) { body { font-size: 16px; }
 
-function updateTimerDisplay() {
-  document.getElementById("timer").textContent = `${timeLeft}s`;
-}
+input, select, button, textarea { font-size: 18px; }
 
-function selectOption(elem, index) {
-  if (answered) return;
-  answered = true;
-  clearInterval(timerInterval);
+#status-bar { flex-direction: column; gap: 5px; } }
 
-  const correct = quizData[currentQuestion].correctIndex;
-  if (index === correct) {
-    elem.classList.add("correct");
-    score++;
-  } else {
-    elem.classList.add("wrong");
-    document.querySelectorAll(".option")[correct].classList.add("correct");
-  }
-
-  document.getElementById("nextBtn").style.display = "block";
-}
-
-function autoFail() {
-  answered = true;
-  const correct = quizData[currentQuestion].correctIndex;
-  document.querySelectorAll(".option")[correct].classList.add("correct");
-  document.getElementById("nextBtn").style.display = "block";
-}
-
-function nextQuestion() {
-  currentQuestion++;
-  if (currentQuestion < quizData.length) {
-    renderQuiz();
-  } else {
-    showResult();
-  }
-}
-
-function showResult() {
-  document.getElementById("question").style.display = "none";
-  document.getElementById("options").style.display = "none";
-  document.getElementById("nextBtn").style.display = "none";
-  document.getElementById("timer").style.display = "none";
-  document.getElementById("counter").style.display = "none";
-
-  const result = document.getElementById("result");
-  result.textContent = `${userAvatar} ${userName}, you scored ${score} out of ${quizData.length}!`;
-  result.style.display = "block";
-  // Save score to Firestore
-db.collection("scores").add({
-  name: userName,
-  avatar: userAvatar,
-  score: score,
-  total: quizData.length,
-  timestamp: new Date()
-})
-.then(() => {
-  console.log("Score saved to Firebase!");
-})
-.catch((error) => {
-  console.error("Error saving score: ", error);
-});
-  // Save to Firebase
-db.collection("scores").add({
-  name: userName,
-  avatar: userAvatar,
-  score: score,
-  total: quizData.length,
-  timestamp: new Date()
-}).then(() => {
-  showPopup("Score saved!");
-  loadLeaderboard();
-}).catch((err) => {
-  showPopup("Error saving score");
-});
-}
-
-function toggleTheme() {
-  document.body.classList.toggle("dark");
-}
+  
