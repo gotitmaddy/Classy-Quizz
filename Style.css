@@ -1,4 +1,3 @@
-/* --- Basic Reset --- */
 body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(to right, #dbeafe, #eef2ff);
@@ -10,17 +9,15 @@ body {
   transition: background 0.5s ease;
 }
 
-/* --- Fade In Animation --- */
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.fade-in {
-  animation: fadeIn 0.5s ease forwards;
-}
-
-/* --- Start Screen --- */
 .start-screen, .quiz-box {
   background: white;
   padding: 25px;
@@ -29,8 +26,6 @@ body {
   width: 90%;
   max-width: 400px;
   text-align: center;
-  opacity: 0;
-  animation: fadeIn 1s forwards;
 }
 
 .start-screen input {
@@ -61,7 +56,6 @@ body {
   box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
 }
 
-/* --- Quiz Box --- */
 .quiz-header {
   display: flex;
   justify-content: space-between;
