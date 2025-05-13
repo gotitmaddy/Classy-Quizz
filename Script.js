@@ -136,6 +136,19 @@ db.collection("scores").add({
 .catch((error) => {
   console.error("Error saving score: ", error);
 });
+  // Save to Firebase
+db.collection("scores").add({
+  name: userName,
+  avatar: userAvatar,
+  score: score,
+  total: quizData.length,
+  timestamp: new Date()
+}).then(() => {
+  showPopup("Score saved!");
+  loadLeaderboard();
+}).catch((err) => {
+  showPopup("Error saving score");
+});
 }
 
 function toggleTheme() {
